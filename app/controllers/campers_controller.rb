@@ -6,6 +6,18 @@ class CampersController < ApplicationController
 
     def show
     camper = Camper.find(params[:id])
-    render json: camper, status: :ok, serializer: :CamperActivitiesSerializer
+    render json: camper, status: :ok, serializer: CamperShowSerializer
     end
+
+    def create
+    camper = Camper.create!(camper_params)
+    render json: camper, status: :created
+    end
+
+    private
+
+    def camper_params
+        params.permit(:name, :age)
+    end
+
 end
